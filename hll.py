@@ -69,6 +69,12 @@ class HyperLogLog:
         if rank > self.registers[idx]:
             self.registers[idx] = rank
 
+    def update(self, items) -> "HyperLogLog":
+        """Add every element of an iterable. Returns self, so calls can chain."""
+        for item in items:
+            self.add(item)
+        return self
+
     def count(self) -> int:
         m = self.m
         s = 0.0

@@ -42,6 +42,12 @@ class AccuracyTests(unittest.TestCase):
 
 
 class BehaviourTests(unittest.TestCase):
+    def test_update_bulk_add(self):
+        hll = HyperLogLog(p=14)
+        ret = hll.update(f"item-{i}" for i in range(5_000))
+        self.assertIs(ret, hll)  # chainable
+        self.assertLess(_rel_err(len(hll), 5_000), 0.03)
+
     def test_idempotent_adds(self):
         hll = HyperLogLog(p=14)
         for _ in range(100):
