@@ -109,6 +109,18 @@ class HyperLogLog:
         new.registers = bytearray(self.registers)
         return new.merge(other)
 
+    def intersection_count(self, other: "HyperLogLog") -> int:
+        """Estimate |A ∩ B| via inclusion-exclusion: |A| + |B| − |A ∪ B|.
+
+        Handy for "how many items do two streams share." Caveat: this subtracts
+        three noisy estimates, so the *relative* error grows when the intersection
+        is small compared to the union — trust it most when the overlap is sizable.
+        """
+        if self.p != other.p:
+            raise ValueError("cannot compare sketches with different precision")
+        est = len(self) + len(other) - len(self.union(other))
+        return max(0, est)
+
     @property
     def error_rate(self) -> float:
         """Expected relative standard error, ≈ 1.04/√m."""

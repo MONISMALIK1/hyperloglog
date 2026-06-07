@@ -93,6 +93,17 @@ class MergeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             HyperLogLog(p=12).merge(HyperLogLog(p=14))
 
+    def test_intersection_count(self):
+        a, b = HyperLogLog(p=14), HyperLogLog(p=14)
+        a.update(f"x-{i}" for i in range(80_000))           # {0..79999}
+        b.update(f"x-{i}" for i in range(40_000, 100_000))  # {40000..99999}
+        # true intersection = {40000..79999} = 40_000 (sizable vs union of 100k)
+        self.assertLess(_rel_err(a.intersection_count(b), 40_000), 0.10)
+
+    def test_intersection_precision_mismatch_raises(self):
+        with self.assertRaises(ValueError):
+            HyperLogLog(p=12).intersection_count(HyperLogLog(p=14))
+
 
 class SerializationTests(unittest.TestCase):
     def test_roundtrip_preserves_estimate(self):
