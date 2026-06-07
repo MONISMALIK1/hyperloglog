@@ -109,6 +109,18 @@ formula, and serialization round-trips.
   approach to 2³². For cardinalities past a few billion, 64-bit hashing (HyperLogLog++)
   is the next step.
 
+## Part of a series
+
+From-scratch, dependency-free implementations of foundational algorithms & papers:
+**probabilistic data structures** —
+[minhash_lsh](https://github.com/MONISMALIK1/minhash_lsh) (near-duplicate detection) ·
+**hyperloglog** (this repo, distinct counting); and
+**LLM-reasoning / RAG** —
+[self_rag](https://github.com/MONISMALIK1/self_rag) ·
+[corrective_rag](https://github.com/MONISMALIK1/corrective_rag) ·
+[hyde](https://github.com/MONISMALIK1/hyde) ·
+[chain_of_verification](https://github.com/MONISMALIK1/chain_of_verification).
+
 ## License
 
 MIT
