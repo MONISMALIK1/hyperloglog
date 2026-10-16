@@ -96,7 +96,7 @@ Hashing uses `blake2b` (stdlib), so estimates are **reproducible** run-to-run.
 make test        # or: python -m unittest discover -s hyperloglog/tests -t . -v
 ```
 
-14 tests checking estimates against **known cardinalities** (small/medium/large,
+17 tests checking estimates against **known cardinalities** (small/medium/large,
 linear-counting and main regimes), idempotence, the merge/union law, the error-rate
 formula, and serialization round-trips.
 
